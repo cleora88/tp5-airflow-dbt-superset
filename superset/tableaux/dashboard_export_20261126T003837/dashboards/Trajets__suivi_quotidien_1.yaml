@@ -1,0 +1,317 @@
+dashboard_title: 'Trajets : suivi quotidien'
+description: null
+css: null
+slug: trajets-suivi
+certified_by: null
+certification_details: null
+published: true
+uuid: 6e8e4076-ec14-4008-8b5b-049ff93a3771
+position:
+  DASHBOARD_VERSION_KEY: v2
+  ROOT_ID:
+    id: ROOT_ID
+    type: ROOT
+    children:
+    - GRID_ID
+  GRID_ID:
+    id: GRID_ID
+    type: GRID
+    children:
+    - ROW-0
+    - ROW-1
+    - ROW-2
+    - ROW-3
+    - ROW-4
+    - ROW-N-OJGQ1IME
+    parents:
+    - ROOT_ID
+  ROW-0:
+    id: ROW-0
+    type: ROW
+    children:
+    - MARKDOWN-0-0
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    meta:
+      background: BACKGROUND_TRANSPARENT
+  MARKDOWN-0-0:
+    id: MARKDOWN-0-0
+    type: MARKDOWN
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-0
+    children: []
+    meta:
+      width: 12
+      height: 12
+      code: "**Donn\xE9es au 9 d\xE9cembre 2025**, recalcul\xE9es chaque nuit par\
+        \ Airflow (`trajets_quotidien`).\n\nPropri\xE9taire : direction des op\xE9\
+        rations. D\xE9finitions : documentation dbt, mod\xE8le `trajets_jour`."
+  ROW-1:
+    id: ROW-1
+    type: ROW
+    children:
+    - CHART-1-0
+    - CHART-1-1
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    meta:
+      background: BACKGROUND_TRANSPARENT
+  CHART-1-0:
+    id: CHART-1-0
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-1
+    children: []
+    meta:
+      width: 6
+      height: 28
+      chartId: 1
+      sliceName: Trajets par jour
+  CHART-1-1:
+    id: CHART-1-1
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-1
+    children: []
+    meta:
+      width: 6
+      height: 28
+      chartId: 2
+      sliceName: "Consommation r\xE9elle"
+  ROW-2:
+    id: ROW-2
+    type: ROW
+    children:
+    - CHART-2-0
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    meta:
+      background: BACKGROUND_TRANSPARENT
+  CHART-2-0:
+    id: CHART-2-0
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-2
+    children: []
+    meta:
+      width: 12
+      height: 35
+      chartId: 3
+      sliceName: "Kilom\xE8tres par type de route"
+  ROW-3:
+    id: ROW-3
+    type: ROW
+    children:
+    - CHART-3-0
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    meta:
+      background: BACKGROUND_TRANSPARENT
+  CHART-3-0:
+    id: CHART-3-0
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-3
+    children: []
+    meta:
+      width: 12
+      height: 35
+      chartId: 4
+      sliceName: "Trajets par r\xE9gion"
+  ROW-4:
+    id: ROW-4
+    type: ROW
+    children:
+    - CHART-4-0
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    meta:
+      background: BACKGROUND_TRANSPARENT
+  CHART-4-0:
+    id: CHART-4-0
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-4
+    children: []
+    meta:
+      width: 12
+      height: 80
+      chartId: 5
+      sliceName: "\xC9cart \xE0 la conso annonc\xE9e"
+  ROW-N-OJGQ1IME:
+    children:
+    - CHART-V4RPETPW
+    - CHART-Y3R63YSA
+    - CHART-GK8QFQZD
+    - CHART-WJJB58KI
+    - CHART-67EL2957
+    id: ROW-N-OJGQ1IME
+    meta:
+      '0': ROOT_ID
+      background: BACKGROUND_TRANSPARENT
+    type: ROW
+    parents:
+    - ROOT_ID
+    - GRID_ID
+  CHART-V4RPETPW:
+    children: []
+    id: CHART-V4RPETPW
+    meta:
+      chartId: 1
+      height: 50
+      sliceName: Trajets par jour
+      uuid: 665299fa-3a57-4c6e-a439-88f71daac94b
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-OJGQ1IME
+  CHART-Y3R63YSA:
+    children: []
+    id: CHART-Y3R63YSA
+    meta:
+      chartId: 2
+      height: 50
+      sliceName: "Consommation r\xE9elle"
+      uuid: 7e57d17c-2f8f-47e5-a877-1cc7926ad3e7
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-OJGQ1IME
+  CHART-GK8QFQZD:
+    children: []
+    id: CHART-GK8QFQZD
+    meta:
+      chartId: 5
+      height: 50
+      sliceName: "\xC9cart \xE0 la conso annonc\xE9e"
+      uuid: e451d0ca-3996-4404-9092-5c97931ad1fe
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-OJGQ1IME
+  CHART-WJJB58KI:
+    children: []
+    id: CHART-WJJB58KI
+    meta:
+      chartId: 3
+      height: 50
+      sliceName: "Kilom\xE8tres par type de route"
+      uuid: 4cd7bf48-c693-43b7-992f-bc91253b3447
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-OJGQ1IME
+  CHART-67EL2957:
+    children: []
+    id: CHART-67EL2957
+    meta:
+      chartId: 4
+      height: 50
+      sliceName: "Trajets par r\xE9gion"
+      uuid: dbd5e752-ea15-4f78-a716-0deb1e0be0af
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-OJGQ1IME
+metadata:
+  refresh_frequency: 0
+  color_scheme: supersetColors
+  timed_refresh_immune_slices: []
+  expanded_slices: {}
+  native_filter_configuration:
+  - id: NATIVE_FILTER-8ea01a7a-e7cf-4636-9578-01436d7f27fc
+    name: "R\xE9gion"
+    filterType: filter_select
+    targets:
+    - column:
+        name: region
+      datasetUuid: 81f6e678-730a-4556-9e30-d2c2e754df02
+    defaultDataMask:
+      extraFormData: {}
+      filterState: {}
+      ownState: {}
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded:
+      - 5
+    controlValues:
+      enableEmptyFilter: false
+      multiSelect: true
+      searchAllOptions: false
+      inverseSelection: false
+    type: NATIVE_FILTER
+  - id: NATIVE_FILTER-1178e715-73d2-43bb-8be5-a43b695d644d
+    name: Type de route
+    filterType: filter_select
+    targets:
+    - column:
+        name: type_route
+      datasetUuid: 81f6e678-730a-4556-9e30-d2c2e754df02
+    defaultDataMask:
+      extraFormData: {}
+      filterState: {}
+      ownState: {}
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded:
+      - 5
+    controlValues:
+      enableEmptyFilter: false
+      multiSelect: true
+      searchAllOptions: false
+      inverseSelection: false
+    type: NATIVE_FILTER
+  - id: NATIVE_FILTER-7135e1c3-a129-405e-b2cb-925e862e7e0b
+    name: "P\xE9riode"
+    filterType: filter_time
+    targets:
+    - {}
+    defaultDataMask:
+      extraFormData: {}
+      filterState: {}
+      ownState: {}
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded:
+      - 5
+    controlValues:
+      enableEmptyFilter: false
+      multiSelect: true
+      searchAllOptions: false
+      inverseSelection: false
+    type: NATIVE_FILTER
+theme_uuid: null
+version: 1.0.0

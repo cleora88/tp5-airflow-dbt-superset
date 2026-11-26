@@ -1,0 +1,26 @@
+slice_name: "Dur\xE9e des runs (s)"
+description: null
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_bar
+params:
+  datasource: 3__table
+  viz_type: echarts_timeseries_bar
+  time_range: No filter
+  adhoc_filters: []
+  row_limit: 10000
+  color_scheme: supersetColors
+  x_axis: jour_traite
+  metrics:
+  - expressionType: SQL
+    sqlExpression: MAX(duree_s)
+    label: "Dur\xE9e (s)"
+    optionName: metric_duree
+  groupby:
+  - state
+  show_legend: true
+query_context: null
+cache_timeout: null
+uuid: de039d98-3b7c-4afc-8193-766f798c3945
+version: 1.0.0
+dataset_uuid: becdc44b-b2e7-49c2-b69c-aa9b62f6a8c2

@@ -1,0 +1,108 @@
+dashboard_title: "Cha\xEEne trajets : supervision"
+description: null
+css: null
+slug: trajets-supervision
+certified_by: null
+certification_details: null
+published: true
+uuid: 2df81b33-0f5b-4553-9546-69fcdd3e91f4
+position:
+  DASHBOARD_VERSION_KEY: v2
+  ROOT_ID:
+    id: ROOT_ID
+    type: ROOT
+    children:
+    - GRID_ID
+  GRID_ID:
+    id: GRID_ID
+    type: GRID
+    children:
+    - ROW-0
+    - ROW-N-TQI6ULGT
+    parents:
+    - ROOT_ID
+  ROW-0:
+    id: ROW-0
+    type: ROW
+    children:
+    - CHART-0-0
+    - CHART-0-1
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    meta:
+      background: BACKGROUND_TRANSPARENT
+  CHART-0-0:
+    id: CHART-0-0
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-0
+    children: []
+    meta:
+      width: 6
+      height: 28
+      chartId: 6
+      sliceName: "Dur\xE9e des runs (s)"
+  CHART-0-1:
+    id: CHART-0-1
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-0
+    children: []
+    meta:
+      width: 6
+      height: 28
+      chartId: 7
+      sliceName: "Runs en \xE9chec"
+  ROW-N-TQI6ULGT:
+    children:
+    - CHART-05KSJXGG
+    - CHART-D1RNE0WT
+    id: ROW-N-TQI6ULGT
+    meta:
+      '0': ROOT_ID
+      background: BACKGROUND_TRANSPARENT
+    type: ROW
+    parents:
+    - ROOT_ID
+    - GRID_ID
+  CHART-05KSJXGG:
+    children: []
+    id: CHART-05KSJXGG
+    meta:
+      chartId: 6
+      height: 50
+      sliceName: "Dur\xE9e des runs (s)"
+      uuid: de039d98-3b7c-4afc-8193-766f798c3945
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-TQI6ULGT
+  CHART-D1RNE0WT:
+    children: []
+    id: CHART-D1RNE0WT
+    meta:
+      chartId: 7
+      height: 50
+      sliceName: "Runs en \xE9chec"
+      uuid: da04822e-d8c7-4899-bf80-122322794bee
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-TQI6ULGT
+metadata:
+  refresh_frequency: 0
+  color_scheme: supersetColors
+  timed_refresh_immune_slices: []
+  expanded_slices: {}
+  native_filter_configuration: []
+theme_uuid: null
+version: 1.0.0

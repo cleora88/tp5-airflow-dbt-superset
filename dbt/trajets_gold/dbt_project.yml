@@ -1,0 +1,27 @@
+# Identité du projet et configuration par dossier
+name: trajets_gold
+version: '1.0.0'
+profile: trajets_gold            # l'entrée de profiles.yml à utiliser
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+snapshot-paths: ["snapshots"]
+
+models:
+  trajets_gold:
+    staging:
+      +materialized: view        # vues légères, rejouées à chaque lecture
+      +schema: staging           # écrites dans <schéma de la cible>_staging
+    marts:
+      +materialized: table       # les tables Gold, lues par Superset
+
+seeds:
+  trajets_gold:
+    +schema: ref                 # référentiels chargés depuis des CSV
+
+vars:
+  jour: null                     # fourni par Airflow : --vars '{"jour": "2025-12-03"}'
+
+flags:
+  require_certificate_validation: true   # futur défaut de dbt-trino

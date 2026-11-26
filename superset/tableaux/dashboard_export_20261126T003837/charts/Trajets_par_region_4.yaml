@@ -1,0 +1,29 @@
+slice_name: "Trajets par r\xE9gion"
+description: null
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_bar
+params:
+  datasource: 1__table
+  viz_type: echarts_timeseries_bar
+  time_range: No filter
+  adhoc_filters: []
+  row_limit: 10000
+  color_scheme: supersetColors
+  x_axis: region
+  metrics:
+  - trajets
+  groupby: []
+  orientation: horizontal
+  sort_series_type: sum
+  sort_series_ascending: false
+  show_legend: false
+  order_desc: true
+  sort_x_axis: true
+  x_axis_sort: trajets
+  x_axis_sort_asc: false
+query_context: null
+cache_timeout: null
+uuid: dbd5e752-ea15-4f78-a716-0deb1e0be0af
+version: 1.0.0
+dataset_uuid: 81f6e678-730a-4556-9e30-d2c2e754df02

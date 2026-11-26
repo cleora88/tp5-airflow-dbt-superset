@@ -1,0 +1,32 @@
+slice_name: "Runs en \xE9chec"
+description: null
+certified_by: null
+certification_details: null
+viz_type: table
+params:
+  datasource: 3__table
+  viz_type: table
+  time_range: No filter
+  adhoc_filters:
+  - expressionType: SIMPLE
+    subject: state
+    operator: ==
+    comparator: failed
+    clause: WHERE
+    isExtra: false
+    isNew: false
+    sqlExpression: null
+    filterOptionName: failed
+  row_limit: 10000
+  color_scheme: supersetColors
+  query_mode: raw
+  all_columns:
+  - jour_traite
+  - run_type
+  - state
+  - taches_ko
+query_context: null
+cache_timeout: null
+uuid: da04822e-d8c7-4899-bf80-122322794bee
+version: 1.0.0
+dataset_uuid: becdc44b-b2e7-49c2-b69c-aa9b62f6a8c2

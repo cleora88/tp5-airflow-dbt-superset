@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configuration du Hive Metastore du TP3 -->
+<configuration>
+  <!-- Où ranger les métadonnées : la base metastore du conteneur MySQL -->
+  <property><name>javax.jdo.option.ConnectionDriverName</name><value>com.mysql.cj.jdbc.Driver</value></property>
+  <property><name>javax.jdo.option.ConnectionURL</name><value>jdbc:mysql://mysql:3306/metastore?createDatabaseIfNotExist=true</value></property>
+  <property><name>javax.jdo.option.ConnectionUserName</name><value>root</value></property>
+  <property><name>javax.jdo.option.ConnectionPassword</name><value>root</value></property>
+
+  <!-- Où ranger les données des tables : le bucket lakehouse de MinIO -->
+  <property><name>hive.metastore.warehouse.dir</name><value>s3a://lakehouse/</value></property>
+  <property><name>hive.metastore.warehouse.external.dir</name><value>s3a://lakehouse/</value></property>
+
+  <!-- Le catalogue REST Iceberg intégré au metastore, sans authentification -->
+  <property><name>metastore.catalog.servlet.port</name><value>9181</value></property>
+  <property><name>metastore.catalog.servlet.auth</name><value>none</value></property>
+  <property><name>metastore.event.db.notification.api.auth</name><value>false</value></property>
+</configuration>

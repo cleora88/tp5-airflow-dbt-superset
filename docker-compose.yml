@@ -1,0 +1,330 @@
+{
+  "name": "tp2-nifi",
+  "networks": {
+    "default": {
+      "name": "tp2-nifi_default",
+      "ipam": {}
+    }
+  },
+  "services": {
+    "hive-metastore": {
+      "container_name": "hive-metastore",
+      "command": null,
+      "entrypoint": null,
+      "environment": {
+        "DB_DRIVER": "mysql"
+      },
+      "image": "tp3-hive-metastore:4.2.1",
+      "networks": {
+        "default": null
+      },
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "./hive/metastore-site.xml",
+          "target": "/opt/hive/conf/metastore-site.xml.template",
+          "read_only": true,
+          "bind": {}
+        },
+        {
+          "type": "bind",
+          "source": "./hive/core-site.xml",
+          "target": "/opt/hive/conf/core-site.xml.template",
+          "read_only": true,
+          "bind": {}
+        }
+      ],
+      "depends_on": {
+        "mysql": {
+          "condition": "service_healthy",
+          "required": true
+        }
+      },
+      "ports": [
+        {
+          "mode": "ingress",
+          "host_ip": "127.0.0.1",
+          "target": 9181,
+          "published": "9181",
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "minio": {
+      "container_name": "tp2-minio",
+      "command": [
+        "server",
+        "/data",
+        "--console-address",
+        ":9001"
+      ],
+      "entrypoint": null,
+      "environment": {
+        "MINIO_ROOT_PASSWORD": "minioadmin",
+        "MINIO_ROOT_USER": "minioadmin"
+      },
+      "image": "pgsty/minio:RELEASE.2026-08-04T00-00-00Z",
+      "networks": {
+        "default": null
+      },
+      "volumes": [
+        {
+          "type": "volume",
+          "source": "minio_data",
+          "target": "/data",
+          "volume": {}
+        }
+      ],
+      "ports": [
+        {
+          "mode": "ingress",
+          "host_ip": "127.0.0.1",
+          "target": 9000,
+          "published": "9000",
+          "protocol": "tcp"
+        },
+        {
+          "mode": "ingress",
+          "host_ip": "127.0.0.1",
+          "target": 9001,
+          "published": "9001",
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "mysql": {
+      "container_name": "tp2-mysql",
+      "command": null,
+      "entrypoint": null,
+      "environment": {
+        "MYSQL_DATABASE": "nifi_test",
+        "MYSQL_PASSWORD": "nifi",
+        "MYSQL_ROOT_PASSWORD": "root",
+        "MYSQL_USER": "nifi"
+      },
+      "image": "mysql:8.4",
+      "networks": {
+        "default": null
+      },
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "./mysql/init.sql",
+          "target": "/docker-entrypoint-initdb.d/init.sql",
+          "read_only": true,
+          "bind": {}
+        },
+        {
+          "type": "volume",
+          "source": "mysql_data",
+          "target": "/var/lib/mysql",
+          "volume": {}
+        }
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-uroot",
+          "-proot"
+        ],
+        "interval": "5s",
+        "retries": 30
+      },
+      "ports": [
+        {
+          "mode": "ingress",
+          "host_ip": "127.0.0.1",
+          "target": 3306,
+          "published": "3308",
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "spark-master": {
+      "image": "tp3-spark:3.5.9",
+      "container_name": "spark-master",
+      "command": "/opt/spark/bin/spark-class org.apache.spark.deploy.master.Master --host spark-master --port 7077 --webui-port 8090",
+      "environment": {
+        "SPARK_PUBLIC_DNS": "localhost"
+      },
+      "ports": [
+        "127.0.0.1:8090:8090"
+      ]
+    },
+    "spark-worker-1": {
+      "image": "tp3-spark:3.5.9",
+      "container_name": "spark-worker-1",
+      "command": "/opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker --cores 2 --memory 1g --webui-port 8091 spark://spark-master:7077",
+      "environment": {
+        "SPARK_PUBLIC_DNS": "localhost"
+      },
+      "depends_on": [
+        "spark-master"
+      ],
+      "ports": [
+        "127.0.0.1:8091:8091"
+      ],
+      "volumes": [
+        "./spark/conf:/opt/spark/conf:ro"
+      ]
+    },
+    "trino": {
+      "image": "trinodb/trino:484",
+      "container_name": "trino",
+      "ports": [
+        "127.0.0.1:8084:8080"
+      ],
+      "depends_on": [
+        "hive-metastore",
+        "minio"
+      ],
+      "volumes": [
+        "./trino/catalog/lake.properties:/etc/trino/catalog/lake.properties:ro",
+        "./trino/jvm.config:/etc/trino/jvm.config:ro"
+      ]
+    },
+    "postgres": {
+      "image": "postgres:16.15-bookworm",
+      "container_name": "postgres",
+      "ports": [
+        "127.0.0.1:5433:5432"
+      ],
+      "environment": {
+        "POSTGRES_PASSWORD": "postgres"
+      },
+      "volumes": [
+        "./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro",
+        "postgres_data:/var/lib/postgresql/data"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "pg_isready",
+          "-U",
+          "postgres"
+        ],
+        "interval": "5s",
+        "retries": 30
+      }
+    },
+    "airflow": {
+      "image": "tp5-airflow:3.3.2",
+      "build": "./airflow",
+      "container_name": "airflow",
+      "hostname": "airflow",
+      "command": "airflow standalone",
+      "depends_on": {
+        "postgres": {
+          "condition": "service_healthy"
+        }
+      },
+      "ports": [
+        "127.0.0.1:8082:8080",
+        "127.0.0.1:8083:8083"
+      ],
+      "environment": {
+        "AIRFLOW__DATABASE__SQL_ALCHEMY_CONN": "postgresql+psycopg2://airflow:airflow@postgres/airflow",
+        "AIRFLOW__CORE__EXECUTOR": "LocalExecutor",
+        "AIRFLOW__CORE__LOAD_EXAMPLES": "false",
+        "AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_ALL_ADMINS": "true",
+        "AIRFLOW__CORE__DEFAULT_TIMEZONE": "utc",
+        "AIRFLOW__SCHEDULER__CREATE_CRON_DATA_INTERVALS": "true",
+        "AIRFLOW_CONN_SPARK_DEFAULT": "spark://spark-master:7077?deploy-mode=client",
+        "AIRFLOW_CONN_TRINO_DEFAULT": "trino://airflow@trino:8080/lake",
+        "AIRFLOW_CONN_MINIO_DEFAULT": "{\"conn_type\": \"aws\", \"login\": \"minioadmin\", \"password\": \"minioadmin\", \"extra\": {\"endpoint_url\": \"http://minio:9000\"}}",
+        "AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION": "true"
+      },
+      "volumes": [
+        "./dags:/opt/airflow/dags",
+        "./jobs:/opt/airflow/jobs",
+        "./dbt:/opt/airflow/dbt",
+        "./spark/conf:/opt/spark/conf:ro",
+        "airflow_logs:/opt/airflow/logs"
+      ]
+    },
+    "superset": {
+      "image": "tp5-superset:6.1.0",
+      "build": "./superset",
+      "container_name": "superset",
+      "depends_on": {
+        "postgres": {
+          "condition": "service_healthy"
+        }
+      },
+      "ports": [
+        "127.0.0.1:8088:8088"
+      ],
+      "environment": {
+        "SUPERSET_SECRET_KEY": "tp5-une-cle-secrete-a-changer-en-production",
+        "DATABASE_URL": "postgresql+psycopg2://superset:superset@postgres/superset",
+        "SUPERSET_CONFIG_PATH": "/app/superset_config.py"
+      },
+      "volumes": [
+        "./superset/superset_config.py:/app/superset_config.py:ro"
+      ]
+    },
+    "loki": {
+      "image": "grafana/loki:3.7.10",
+      "container_name": "loki",
+      "command": "-config.file=/etc/loki/local-config.yaml -ingester.wal-enabled=false",
+      "ports": [
+        "127.0.0.1:3100:3100"
+      ],
+      "volumes": [
+        "loki_data:/loki"
+      ]
+    },
+    "alloy": {
+      "image": "grafana/alloy:v1.22.0",
+      "container_name": "alloy",
+      "command": "run --server.http.listen-addr=0.0.0.0:12345 /etc/alloy/config.alloy",
+      "ports": [
+        "127.0.0.1:12345:12345"
+      ],
+      "volumes": [
+        "./alloy/config.alloy:/etc/alloy/config.alloy:ro",
+        "/var/run/docker.sock:/var/run/docker.sock:ro",
+        "airflow_logs:/airflow-logs:ro"
+      ],
+      "depends_on": [
+        "loki"
+      ]
+    },
+    "grafana": {
+      "image": "grafana/grafana:13.2.7",
+      "container_name": "grafana",
+      "ports": [
+        "127.0.0.1:3000:3000"
+      ],
+      "volumes": [
+        "./grafana/provisioning:/etc/grafana/provisioning:ro",
+        "grafana_data:/var/lib/grafana",
+        "./grafana/tableaux:/var/lib/grafana/dashboards:ro"
+      ],
+      "environment": {
+        "GF_SECURITY_ADMIN_USER": "admin",
+        "GF_SECURITY_ADMIN_PASSWORD": "admin"
+      },
+      "depends_on": [
+        "loki",
+        "postgres"
+      ]
+    }
+  },
+  "volumes": {
+    "minio_data": {
+      "name": "tp2-nifi_minio_data"
+    },
+    "mysql_data": {
+      "name": "tp2-nifi_mysql_data"
+    },
+    "postgres_data": {},
+    "airflow_logs": {},
+    "loki_data": {},
+    "grafana_data": {}
+  }
+}

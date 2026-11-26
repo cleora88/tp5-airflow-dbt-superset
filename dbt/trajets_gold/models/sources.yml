@@ -1,0 +1,19 @@
+version: 2
+
+sources:
+  - name: silver
+    description: "Tables Silver écrites par Spark (TP3 et job SilverTrajets du TP5)"
+    database: lake
+    schema: silver
+    tables:
+      - name: trajets
+        description: "Trajets nettoyés, une ligne par trajet, partitionnés par jour"
+        loaded_at_field: ingere_a          # colonne technique écrite par Spark
+        freshness:
+          warn_after: {count: 6, period: hour}
+          error_after: {count: 24, period: hour}
+        columns:
+          - name: id_trajet
+            data_tests: [unique, not_null]
+      - name: voitures
+        description: "Référentiel des 408 voitures (TP3)"

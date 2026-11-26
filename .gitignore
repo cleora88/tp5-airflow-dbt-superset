@@ -1,0 +1,15 @@
+sources/
+evidence/
+report/*
+!report/answers.md
+tools/*
+!tools/*.py
+**/target/
+**/logs/
+**/__pycache__/
+*.zip
+.env
+
+
+setup_tp5.py
+**/.user.yml

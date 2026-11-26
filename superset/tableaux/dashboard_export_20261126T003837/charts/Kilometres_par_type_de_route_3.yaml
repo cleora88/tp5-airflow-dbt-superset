@@ -1,0 +1,26 @@
+slice_name: "Kilom\xE8tres par type de route"
+description: null
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_line
+params:
+  datasource: 1__table
+  viz_type: echarts_timeseries_line
+  time_range: No filter
+  adhoc_filters: []
+  row_limit: 10000
+  color_scheme: supersetColors
+  x_axis: jour
+  granularity_sqla: jour
+  time_grain_sqla: P1D
+  metrics:
+  - km
+  groupby:
+  - type_route
+  show_legend: true
+  x_axis_time_format: '%d/%m'
+query_context: null
+cache_timeout: null
+uuid: 4cd7bf48-c693-43b7-992f-bc91253b3447
+version: 1.0.0
+dataset_uuid: 81f6e678-730a-4556-9e30-d2c2e754df02

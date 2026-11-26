@@ -1,0 +1,20 @@
+const fs=require('fs'),path=require('path');
+const {chromium}=require('C:/Program Files/WindowsApps/OpenAI.CodexPrimaryRuntime.v26-1123-915-0_26.1123.915.0_x64__3k8sg7r9htsxt/dependencies/node/node_modules/playwright');
+const E=path.join(__dirname,'evidence');
+(async()=>{const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});const page=await browser.newPage({viewport:{width:1100,height:100}});
+try{for(const name of fs.readdirSync(E).filter(n=>/^\d.*\.txt$/.test(n))){
+let text=fs.readFileSync(path.join(E,name),'utf8').replace(/\u001b\[[0-?]*[ -/]*[@-~]/g,'');let lines=text.split('\n');
+if(/contract-failure/.test(name))lines=lines.filter(l=>/^\$|enforced contract|column_name|km\s|km_total|missing in|Done\.|ERROR creating/.test(l));
+else if(/build-skip/.test(name))lines=lines.filter(l=>/^\$|FAIL 6739|SKIP relation|SKIP test|SKIP exposure|Completed with|Done\./.test(l));
+else if(/tests|final-build|restored/.test(name))lines=lines.filter(l=>/^\$|PASS conso_modeles::|WARN 1|Finished running|Done\.|All checks passed/.test(l));
+else if(/connection/.test(name))lines=lines.filter(l=>/^\$|conn_id:|conn_type:|host:|port:|schema:|login:/.test(l));
+else if(/debug/.test(name))lines=lines.filter(l=>/^\$|dbt version|adapter version|host:|database:|schema:|Connection test|All checks passed/.test(l));
+else if(/snapshots|snapshot-history|counts|validation|reconciliation-rows|metrics|gold-before-clear/.test(name))lines=lines.filter(l=>/^\$|^\{/.test(l));
+else if(/export-csv/.test(name))lines=[lines[0],...lines.filter(l=>/^jour;|^2025-/.test(l)).slice(0,7),'[…] — 24 lignes de données dans la sortie complète'];
+else if(/build.txt/.test(name))lines=lines.filter(l=>/BUILD SUCCESS|Building jar:|Total time:|compiling/.test(l));
+else lines=lines.filter(l=>/^\$|Silver 2025|INSERT|CREATE VIEW|MERGE|PASS freshness|Done\.|installed:|trino:|Core:|Plugins:|All checks passed|No data found|ALERTE|0.05/.test(l));
+if(lines.filter(l=>l.trim()).length<2)continue;
+await page.setContent('<style>body{margin:0;padding:24px;background:#142432;color:#f7f8fa}h1{font:600 22px Arial}pre{font:18px/1.45 Consolas;white-space:pre-wrap;overflow-wrap:anywhere}</style><h1></h1><pre></pre>');
+await page.locator('h1').evaluate((e,n)=>e.textContent='Extrait de sortie réelle enregistrée — '+n,name);await page.locator('pre').evaluate((e,t)=>e.textContent=t,lines.join('\n').trim());
+await page.screenshot({path:path.join(E,name.replace('.txt','-excerpt.png')),fullPage:true});
+}}finally{await browser.close()}})().catch(e=>{console.error(e);process.exitCode=1});

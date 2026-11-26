@@ -1,0 +1,22 @@
+# Connexion de dbt à Trino. En entreprise, ce fichier est hors du dépôt Git (~/.dbt/).
+trajets_gold:
+  target: dev
+  outputs:
+    dev:                         # votre bac à sable : lake.gold_dev
+      type: trino
+      method: none
+      host: trino
+      port: 8080
+      user: dbt
+      database: lake             # le catalogue Trino
+      schema: gold_dev
+      threads: 4
+    prod:                        # la production, lue par Superset : lake.gold
+      type: trino
+      method: none
+      host: trino
+      port: 8080
+      user: dbt
+      database: lake
+      schema: gold
+      threads: 4

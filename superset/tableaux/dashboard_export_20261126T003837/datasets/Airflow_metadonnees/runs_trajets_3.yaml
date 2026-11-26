@@ -1,0 +1,128 @@
+table_name: runs_trajets
+main_dttm_col: debut
+currency_code_column: null
+description: "Produit trajets quotidiens \u2014 Direction des op\xE9rations. D\xE9\
+  finitions dans dbt."
+default_endpoint: null
+offset: 0
+cache_timeout: 3600
+catalog: null
+schema: null
+sql: SELECT r.run_id,r.run_type,r.state,to_char(r.logical_date,'YYYY-MM-DD') AS jour_traite,min(t.start_date)
+  AS debut,EXTRACT(EPOCH FROM max(t.end_date)-min(t.start_date)) AS duree_s,count(*)
+  FILTER(WHERE t.state IN ('failed','upstream_failed')) AS taches_ko FROM dag_run
+  r JOIN task_instance t ON t.dag_id=r.dag_id AND t.run_id=r.run_id WHERE r.dag_id='trajets_quotidien'
+  AND r.end_date IS NOT NULL GROUP BY r.run_id,r.run_type,r.state,r.logical_date
+params: null
+template_params: null
+filter_select_enabled: true
+fetch_values_predicate: null
+extra: null
+normalize_columns: false
+always_filter_main_dttm: false
+folders: null
+uuid: becdc44b-b2e7-49c2-b69c-aa9b62f6a8c2
+metrics:
+- metric_name: count
+  verbose_name: COUNT(*)
+  metric_type: count
+  expression: COUNT(*)
+  description: null
+  d3format: null
+  currency: null
+  extra: null
+  warning_text: null
+columns:
+- column_name: duree_s
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: DECIMAL
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: debut
+  verbose_name: null
+  is_dttm: true
+  is_active: true
+  type: DATETIMETZ
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: taches_ko
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: LONGINTEGER
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: jour_traite
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: STRING
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: run_id
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: STRING
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: run_type
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: STRING
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: state
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: STRING
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+version: 1.0.0
+database_uuid: 802200e4-090f-4a5b-ad3f-1442e50ebf11

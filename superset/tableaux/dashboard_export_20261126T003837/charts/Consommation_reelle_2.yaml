@@ -1,0 +1,22 @@
+slice_name: "Consommation r\xE9elle"
+description: null
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  datasource: 1__table
+  viz_type: big_number_total
+  time_range: No filter
+  adhoc_filters: []
+  row_limit: 10000
+  color_scheme: supersetColors
+  metric: conso_l100
+  y_axis_format: .2f
+  subheader: l/100 km
+  header_font_size: 0.5
+  subheader_font_size: 0.18
+query_context: null
+cache_timeout: null
+uuid: 7e57d17c-2f8f-47e5-a877-1cc7926ad3e7
+version: 1.0.0
+dataset_uuid: 81f6e678-730a-4556-9e30-d2c2e754df02

@@ -1,0 +1,102 @@
+{
+  "id": 1,
+  "uid": "tp5-chaine-failed",
+  "orgID": 1,
+  "folderUID": "tp5",
+  "ruleGroup": "chaine",
+  "title": "Chaîne trajets en échec",
+  "condition": "C",
+  "data": [
+    {
+      "refId": "A",
+      "queryType": "instant",
+      "relativeTimeRange": {
+        "from": 600,
+        "to": 0
+      },
+      "datasourceUid": "loki",
+      "model": {
+        "expr": "sum(count_over_time({source=\"alertes\"} [10m]))",
+        "instant": true,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "queryType": "instant",
+        "refId": "A"
+      }
+    },
+    {
+      "refId": "B",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 0,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "expression": "A",
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "reducer": "last",
+        "refId": "B",
+        "settings": {
+          "mode": "dropNN"
+        },
+        "type": "reduce"
+      }
+    },
+    {
+      "refId": "C",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 0,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                0
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "C"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "expression": "B",
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "refId": "C",
+        "type": "threshold"
+      }
+    }
+  ],
+  "updated": "2026-11-26T00:01:11.029375394Z",
+  "noDataState": "OK",
+  "execErrState": "Error",
+  "for": "0s",
+  "keep_firing_for": "0s",
+  "annotations": {
+    "summary": "Un run de trajets_quotidien a échoué : voir le tableau de bord d'exploitation."
+  },
+  "labels": {
+    "projet": "TP5"
+  },
+  "provenance": "api",
+  "isPaused": false,
+  "notification_settings": null,
+  "record": null
+}

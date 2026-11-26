@@ -1,0 +1,28 @@
+slice_name: "\xC9cart \xE0 la conso annonc\xE9e"
+description: null
+certified_by: null
+certification_details: null
+viz_type: table
+params:
+  datasource: 2__table
+  viz_type: table
+  time_range: No filter
+  adhoc_filters: []
+  row_limit: 15
+  color_scheme: supersetColors
+  query_mode: raw
+  all_columns:
+  - modele
+  - origine
+  - nb_trajets
+  - conso_annoncee_l100
+  - conso_reelle_l100
+  - ecart_pct
+  order_by_cols:
+  - '["ecart_pct", false]'
+  table_timestamp_format: smart_date
+query_context: null
+cache_timeout: null
+uuid: e451d0ca-3996-4404-9092-5c97931ad1fe
+version: 1.0.0
+dataset_uuid: 1910cc32-d68a-4407-887a-703f677ec1bf

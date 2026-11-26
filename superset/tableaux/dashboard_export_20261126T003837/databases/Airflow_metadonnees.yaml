@@ -1,0 +1,18 @@
+database_name: "Airflow (m\xE9tadonn\xE9es)"
+sqlalchemy_uri: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+cache_timeout: 3600
+expose_in_sqllab: true
+allow_run_async: false
+allow_ctas: false
+allow_cvas: false
+allow_dml: false
+allow_file_upload: false
+extra:
+  metadata_params: {}
+  engine_params: {}
+  metadata_cache_timeout: {}
+  schemas_allowed_for_file_upload: []
+impersonate_user: false
+configuration_method: sqlalchemy_form
+uuid: 802200e4-090f-4a5b-ad3f-1442e50ebf11
+version: 1.0.0
