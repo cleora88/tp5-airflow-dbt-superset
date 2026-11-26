@@ -34,7 +34,7 @@ p('Technologies Big Data II','Heading2');p('Airflow · dbt · Trino · Superset 
 story.append(Spacer(1,45));p('<b>Zouhair Eouichak</b><br/>Groupe TP B<br/>Université Internationale de Rabat')
 p('Pr Youssef GAHI')
 p('Dépôt Git du projet :<br/><link href="https://github.com/cleora88/tp5-airflow-dbt-superset" color="#173650">https://github.com/cleora88/tp5-airflow-dbt-superset</link>','Small')
-p('Dépôt privé : accès à accorder au professeur.','Small')
+p('Dépôt public, consultable sans invitation.','Small')
 
 new('Compte rendu du fonctionnement')
 for text in v['chronology_paragraphs']:p(text)
@@ -54,7 +54,7 @@ for section in v['evidence_sections']:
     for entry in section['images']:shot(entry['file'],entry['caption'],entry.get('max_height',440))
 new('Reproductibilité et livraison')
 p('Dépôt Git du projet :<br/><link href="https://github.com/cleora88/tp5-airflow-dbt-superset" color="#173650">https://github.com/cleora88/tp5-airflow-dbt-superset</link>','Small')
-p('Dépôt privé : accès à accorder au professeur.','Small')
+p('Dépôt public, consultable sans invitation.','Small')
 
 for text in v['delivery_paragraphs']:p(text)
 p('Sources : sujet TP5 Airflow dbt Superset et chapitre 6 bis dbt fournis ; documentation officielle Trino 484 pour fs.s3.enabled. Les versions, sorties, requêtes, captures et durées de ce poste sont conservées dans le dossier de preuves.','Small')

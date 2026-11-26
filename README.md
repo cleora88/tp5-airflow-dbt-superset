@@ -2,7 +2,7 @@
 
 Zouhair Eouichak — Groupe TP B — UIR
 
-Dépôt Git du TP5 : [https://github.com/cleora88/tp5-airflow-dbt-superset](https://github.com/cleora88/tp5-airflow-dbt-superset). Dépôt privé ; accès à accorder au professeur.
+Dépôt Git du TP5 : [https://github.com/cleora88/tp5-airflow-dbt-superset](https://github.com/cleora88/tp5-airflow-dbt-superset). Dépôt public, consultable par le professeur sans invitation.
 
 Le produit expose l'activité quotidienne de l'agence à la direction des opérations, aux responsables régionaux et au partenaire destinataire du CSV. Le propriétaire métier est la direction des opérations ; l'équipe data assure l'exploitation.
 
