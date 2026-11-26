@@ -14,7 +14,7 @@ images.update(['00-spark-platform.png','12-sql-silver.png','19-airflow-failed-gr
 assert all((E/n).is_file() for n in images)
 proof=[p for p in E.iterdir() if p.is_file() and p.suffix in ['.txt','.json','.jsonl'] and p.name!='airflow-openapi.json']
 proof += [E/n for n in sorted(images)]
-git_files=[p for p in (B/'.git').rglob('*') if p.is_file() and 'hooks' not in p.parts]
+git_files=[p for p in (B/'.git').rglob('*') if p.is_file() and 'hooks' not in p.parts and 'logs' not in p.relative_to(B/'.git').parts]
 dest=B/'TP5_Eouichak_Zouhair_complet.zip'
 with zipfile.ZipFile(dest,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:
     for name in tracked:z.write(B/name,'TP5/'+name)
