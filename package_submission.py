@@ -12,7 +12,7 @@ assert all(x['verified'] for x in json.loads((E/'checklist.json').read_text(enco
 images={i['file'] for s in v['evidence_sections'] for i in s['images']}
 images.update(['00-spark-platform.png','12-sql-silver.png','19-airflow-failed-grid.png','20-dashboard-final.png','20-fes-final.png'])
 assert all((E/n).is_file() for n in images)
-proof=[p for p in E.iterdir() if p.is_file() and p.suffix in ['.txt','.json','.jsonl'] and p.name!='airflow-openapi.json']
+proof=[p for p in E.iterdir() if p.is_file() and p.suffix in ['.txt','.json','.jsonl'] and p.name not in ['airflow-openapi.json','submission-validation.json']]
 proof += [E/n for n in sorted(images)]
 git_files=[p for p in (B/'.git').rglob('*') if p.is_file() and 'hooks' not in p.parts and 'logs' not in p.relative_to(B/'.git').parts]
 dest=B/'TP5_Eouichak_Zouhair_complet.zip'

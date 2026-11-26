@@ -2,6 +2,8 @@
 
 Zouhair Eouichak — Groupe TP B — UIR
 
+Dépôt Git du TP5 : [https://github.com/cleora88/tp5-airflow-dbt-superset](https://github.com/cleora88/tp5-airflow-dbt-superset). Dépôt privé ; accès à accorder au professeur.
+
 Le produit expose l'activité quotidienne de l'agence à la direction des opérations, aux responsables régionaux et au partenaire destinataire du CSV. Le propriétaire métier est la direction des opérations ; l'équipe data assure l'exploitation.
 
 Le grain de `trajets_jour` est une journée UTC, une ville et un type de route. `trajets` additionne les trajets valides ; `km` additionne les distances ; la consommation est `SUM(litres)*100/NULLIF(SUM(km),0)` en l/100 km. Le nombre de voitures est distinct dans chaque groupe et ne doit pas être additionné entre groupes pour obtenir un nombre global distinct. `conso_modeles` compare la consommation réelle et annoncée par modèle. Les définitions, types, tests et lignage sont dans le projet dbt.
